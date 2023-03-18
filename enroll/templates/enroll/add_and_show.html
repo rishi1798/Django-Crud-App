@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="{% url "home" %}">
+        {% csrf_token %}
+    <table>
+        <div>
+            {% for field in fm %}
+                {{field.label_tag}}
+                <p>{{field}}</p>
+                {% comment %} {{field.help_text}} {% endcomment %}
+            {% endfor %}
+        </div>
+    </table>    
+    <button type="submit">Send</button>
+    </form>
+
+    <br><br><br>
+    <div>
+        {% if stu_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>choice</th>
+                </tr>
+            </thead>
+            {% for student in stu_data %}
+            <tbody>
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{student.username}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.password}}</td>
+                    <td>{{student.firstname}}</td>
+                    <form method="POST" action="{% url "delete-user" student.id %}">  
+                        {% csrf_token %}  
+                        <td>
+                            <button type="submit">delete</button>
+                        </td>
+                    </form>
+                
+                    <form method="" action="{% url "update-user" student.id %}">
+                        {% csrf_token %} 
+                    <td>
+                        <button type="submit">Edit</button>
+                    </td>
+                    </form>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+        No Record
+
+        {% endif %}
+       
+        
+    </div>
+</body>
+</html>
