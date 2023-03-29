@@ -21,7 +21,4 @@ class RegistrationForm(forms.ModelForm):
             'password':'Your Password'
         }
         
-        color_choices=[
-            ('c','Completed'),
-            ('p','pending')
-        ]
+      
